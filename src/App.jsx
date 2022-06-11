@@ -2,7 +2,7 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { Home, Login, ProductDetails, ShopDetails, Purchases } from "./pages";
-import { LoadingScreen, NavBar } from "./components";
+import { LoadingScreen, NavBar, ProtectedRoutes } from "./components";
 
 import "./App.css";
 import Container from "react-bootstrap/Container";
@@ -20,7 +20,9 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/product/:id" element={<ProductDetails />} />
                     <Route path="/shop/:id" element={<ShopDetails />} />
-                    <Route path="/purchases" element={<Purchases />} />
+                    <Route element={<ProtectedRoutes />}>
+                        <Route path="/purchases" element={<Purchases />} />
+                    </Route>
                 </Routes>
             </Container>
         </HashRouter>
