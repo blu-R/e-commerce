@@ -56,7 +56,7 @@ export const addToCart = (product) => (dispatch) => {
             alert("Product added to cart :)");
         })
         .catch((error) => {
-            console.log(error.response);
+            // console.log(error.response);
             alert("An error has ocurred");
         })
         .finally(() => dispatch(setIsLoading(false)));

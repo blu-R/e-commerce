@@ -14,18 +14,26 @@ function SignIn() {
     const submit = (data) => {
         dispatch(setIsLoading(true));
         const newUser = { ...data, role: "admin" };
-        console.log(newUser);
+        // console.log(newUser);
         axios
             .post(
                 `https://ecommerce-api-react.herokuapp.com/api/v1/users`,
                 newUser
             )
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 alert("User created succesfully. Please, Log in");
                 navigate("/login");
             })
-            .catch((error) => console.log(error.response))
+            .catch((error) => {
+                console.log(error.response);
+                if (error.response.status === 400) {
+                    alert("Incomplete data. Please fill all fields");
+                } else {
+                    alert("An error has ocurred");
+                    navigate("/");
+                }
+            })
             .finally(() => dispatch(setIsLoading(false)));
     };
 
