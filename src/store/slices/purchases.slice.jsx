@@ -23,8 +23,13 @@ export const getPurchases = () => (dispatch) => {
             getConfig()
         )
         .then((res) => {
-            // console.log(res.data);
-            dispatch(setPurchases(res.data.data.purchases));
+            const purchasesSorted = res.data.data.purchases.sort(function (
+                a,
+                b
+            ) {
+                return new Date(b.createdAt) - new Date(a.createdAt);
+            });
+            dispatch(setPurchases(purchasesSorted));
         })
         .finally(() => dispatch(setIsLoading(false)));
 };

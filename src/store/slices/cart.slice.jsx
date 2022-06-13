@@ -24,7 +24,40 @@ export const getCart = () => (dispatch) => {
         )
         .then((res) => {
             // console.log(res.data);
-            dispatch(setCart(res.data.data.cart));
+            const subtotals = [];
+            res.data.data?.cart?.products?.map((product) => {
+                subtotals.push(
+                    Number(product.price) * product.productsInCart.quantity
+                );
+                // console.log(subtotals);
+            });
+
+            const total = subtotals.reduce(
+                (partialSum, a) => partialSum + a,
+                0
+            );
+            // console.log(total);
+            dispatch(setCart({ ...res.data.data.cart, total }));
+        })
+        .catch((error) => console.log(error.response))
+        .finally(() => dispatch(setIsLoading(false)));
+};
+
+export const addToCart = (product) => (dispatch) => {
+    dispatch(setIsLoading(true));
+    return axios
+        .post(
+            "https://ecommerce-api-react.herokuapp.com/api/v1/cart",
+            product,
+            getConfig()
+        )
+        .then(() => {
+            dispatch(getCart());
+            alert("Product added to cart :)");
+        })
+        .catch((error) => {
+            console.log(error.response);
+            alert("An error has ocurred");
         })
         .finally(() => dispatch(setIsLoading(false)));
 };

@@ -1,0 +1,33 @@
+#button-addon2,
+.container-card button {
+    background-color: #f85555;
+    color: #fff;
+    border: none;
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.container-card button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 7;
+}
+.container-card button:hover {
+    background: #f21515;
+}
+.container-card button:focus {
+    background: #f85555;
+}
+
+.card-info span {
+    color: #c7c7c7;
+}
+
+.card-info p {
+    font-weight: 600;
+}
